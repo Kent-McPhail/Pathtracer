@@ -74,7 +74,11 @@ void App::onInit() {
             //"G3D Simple Cornell Box"
 			//"G3D Debug Triangle"
 			//"G3D Simple Cornell Box (Empty CO)"
-			"G3D Simple Cornell Box (Area Light)"
+			//"G3D Simple Cornell Box (Area Light)"
+			//"G3D Simple Cornell Box"
+			"G3D Simple Cornell Box (Mirror)"
+			//"G3D Sponza"
+			//"G3D Sibernik (Statue)"
 			//"G3D Simple Cornell Box (Spheres)"
 			//"G3D Sponza (Area Light)"
 			//"G3D Debug Teapot"
@@ -82,7 +86,11 @@ void App::onInit() {
             //"G3D Simple Cornell Box" // Load something simple
 			//"G3D Debug Triangle"
 			//"G3D Simple Cornell Box (Empty CO)"
-			"G3D Simple Cornell Box (Area Light)"
+			//"G3D Simple Cornell Box (Area Light)"
+			"G3D Simple Cornell Box (Mirror)"
+			//"G3D Simple Cornell Box"
+			//"G3D Sibernik (Statue)"
+			//"G3D Sponza"
 			//"G3D Simple Cornell Box (Spheres)"
 			//"G3D Sponza (Area Light)"
 			//"G3D Debug Teapot"
@@ -237,10 +245,12 @@ void App::onRender() {
 	RayTracer raytrace;									 
 	//setActiveCamera(debugCamera());	
 	Stopwatch timer;
+	scene()->onPose(m_surfaceArray);	//Extracts all surfaces from the scene into an array
+	scene()->getTypedEntityArray<Light>(m_LightArray);
 	raytrace.TraceImage(m_debugCamera, m_currentImage, m_surfaceArray, raysPerPixel, m_LightArray);
 	timer.printElapsedTime("Trace");
 	debugPrintf("%f s\n", timer.elapsedTime());
-	activeCamera()->filmSettings().setSensitivity(0.5f);
+	activeCamera()->filmSettings().setSensitivity(0.25f);
 	
 	// Post-process
 	//Converting from image to texture
@@ -253,7 +263,7 @@ void App::onRender() {
 	
 	//debugPrintf("%f", activeCamera()->filmSettings().sensitivity());
 	m_film->exposeAndRender(renderDevice, activeCamera()->filmSettings(), src, settings().hdrFramebuffer.colorGuardBandThickness.x, settings().hdrFramebuffer.depthGuardBandThickness.x, m_result);
-	
+	show(m_result, "Raw Radiance");
 }
 
 
@@ -266,8 +276,8 @@ void App::onGraphics2D(RenderDevice* rd, Array<shared_ptr<Surface2D> >& posed2D)
 void App::onAfterLoadScene(const Any & any, const String & sceneName) {
 	GApp::onAfterLoadScene(any, sceneName);
 	
-	scene()->onPose(m_surfaceArray);	//Extracts all surfaces from the scene into an array
-	scene()->getTypedEntityArray<Light>(m_LightArray);
+	//scene()->onPose(m_surfaceArray);	//Extracts all surfaces from the scene into an array
+	//scene()->getTypedEntityArray<Light>(m_LightArray);
 }
 
 
