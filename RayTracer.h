@@ -14,11 +14,16 @@ public:
 		const shared_ptr<Camera>& cam, 
 		shared_ptr<Image3>& image, 
 		Array<shared_ptr<Surface>>& surfaceArray, 
-		const int raysPerPixel, 
 		const Array<shared_ptr<Light>>& LightArray); 
 
 	void RayTracer::castAllPrimaryRays(
 		Array<Ray>& rayBuffer);
+
+	Color3 RayTracer::L_i(
+		Array<Ray>& rayBuffer,
+		const Array<shared_ptr<Light>>& LightArray,
+		Array<shared_ptr<Surfel>>& surfelBuffer,
+		Array<Radiance3>& outputBuffer);
 
 	void RayTracer::addEmissive(
 		const Array<Ray>& rayBuffer,
@@ -27,6 +32,7 @@ public:
 		const Array<Color3>& modulationBuffer);
 
 	void RayTracer::calcBiradiance(
+		Array<Ray>& rayBuffer,
 		const Array<shared_ptr<Surfel>>& surfelBuffer,
 		Array<Biradiance3>& biradianceBuffer,
 		Array<Ray>& shadowRayBuffer,
@@ -48,13 +54,7 @@ public:
 		Array<shared_ptr<Surfel>>& surfelBuffer,
 		Array<Radiance3>& outputBuffer,
 		Array<Color3>& modulationBuffer, 
-		int bounces);
-
-	Color3 RayTracer::L_i(
-		Array<Ray>& rayBuffer, 
-		const Array<shared_ptr<Light>>& LightArray,
-		Array<shared_ptr<Surfel>>& surfelBuffer, 
-		Array<Radiance3>& outputBuffer);	
+		int bounces);	
 
 	Radiance3 RayTracer::L_indirect(
 		Array<Ray>& rayBuffer, 
@@ -62,7 +62,7 @@ public:
 		Array<Radiance3>& outputBuffer, 
 		Array<Color3>& modulationBuffer, 
 		const Array<shared_ptr<Light>>& LightArray, int bounces);
-
+	
 	int m_maxNumberOfScatterEvents;
 	shared_ptr<TriTree> m_triTree;
 

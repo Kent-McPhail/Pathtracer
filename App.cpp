@@ -18,9 +18,9 @@ int main(int argc, const char* argv[]) {
 
     // Some common resolutions:
 	// settings.window.width = 10; settings.window.height = 10;
-    settings.window.width            =  854; settings.window.height       = 480;
+    //settings.window.width            =  854; settings.window.height       = 480;
     // settings.window.width            = 1024; settings.window.height       = 768;
-    //settings.window.width               = 1280; settings.window.height       = 720;
+    settings.window.width               = 1280; settings.window.height       = 720;
     //settings.window.width             = 1920; settings.window.height       = 1080;
     //settings.window.width            = OSWindow::primaryDisplayWindowSize().x; settings.window.height = OSWindow::primaryDisplayWindowSize().y;
     settings.window.fullScreen          = false;
@@ -76,10 +76,10 @@ void App::onInit() {
 			//"G3D Simple Cornell Box (Empty CO)"
 			//"G3D Simple Cornell Box (Area Light)"
 			//"G3D Simple Cornell Box"
-			"G3D Simple Cornell Box (Mirror)"
+			//"G3D Simple Cornell Box (Mirror)"
 			//"G3D Sponza"
 			//"G3D Sibernik (Statue)"
-			//"G3D Simple Cornell Box (Spheres)"
+			"G3D Simple Cornell Box (Spheres)"
 			//"G3D Sponza (Area Light)"
 			//"G3D Debug Teapot"
 #       else
@@ -87,11 +87,11 @@ void App::onInit() {
 			//"G3D Debug Triangle"
 			//"G3D Simple Cornell Box (Empty CO)"
 			//"G3D Simple Cornell Box (Area Light)"
-			"G3D Simple Cornell Box (Mirror)"
+			//"G3D Simple Cornell Box (Mirror)"
 			//"G3D Simple Cornell Box"
 			//"G3D Sibernik (Statue)"
 			//"G3D Sponza"
-			//"G3D Simple Cornell Box (Spheres)"
+			"G3D Simple Cornell Box (Spheres)"
 			//"G3D Sponza (Area Light)"
 			//"G3D Debug Teapot"
 #       endif
@@ -247,7 +247,7 @@ void App::onRender() {
 	Stopwatch timer;
 	scene()->onPose(m_surfaceArray);	//Extracts all surfaces from the scene into an array
 	scene()->getTypedEntityArray<Light>(m_LightArray);
-	raytrace.TraceImage(m_debugCamera, m_currentImage, m_surfaceArray, raysPerPixel, m_LightArray);
+	raytrace.TraceImage(m_debugCamera, m_currentImage, m_surfaceArray, m_LightArray);
 	timer.printElapsedTime("Trace");
 	debugPrintf("%f s\n", timer.elapsedTime());
 	activeCamera()->filmSettings().setSensitivity(0.25f);
